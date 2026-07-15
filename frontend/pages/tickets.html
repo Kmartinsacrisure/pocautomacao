@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chamados · Help Desk</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <div id="sidebar-slot"></div>
+
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <div class="eyebrow">Solicitações internas</div>
+        <h1>Chamados</h1>
+      </div>
+      <a href="ticket-form.html" class="btn btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
+        Novo Chamado
+      </a>
+    </div>
+
+    <div class="toolbar">
+      <div class="search-input">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="filtro-busca" placeholder="Pesquisar por título...">
+      </div>
+      <select id="filtro-status">
+        <option value="">Todos os status</option>
+        <option value="Aberto">Aberto</option>
+        <option value="Em Atendimento">Em Atendimento</option>
+        <option value="Finalizado">Finalizado</option>
+      </select>
+      <select id="filtro-prioridade">
+        <option value="">Todas as prioridades</option>
+        <option value="Baixa">Baixa</option>
+        <option value="Média">Média</option>
+        <option value="Alta">Alta</option>
+      </select>
+      <select id="filtro-ordenar">
+        <option value="data_abertura-DESC">Mais recentes</option>
+        <option value="data_abertura-ASC">Mais antigos</option>
+        <option value="titulo-ASC">Título (A-Z)</option>
+        <option value="prioridade-DESC">Prioridade</option>
+      </select>
+    </div>
+
+    <div id="lista-chamados">
+      <div class="spinner"></div>
+    </div>
+    <div id="paginacao-chamados"></div>
+  </main>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/components/sidebar.js"></script>
+<script src="/js/tickets.js"></script>
+<script>
+  montarLayout('tickets');
+  iniciarListagem();
+</script>
+</body>
+</html>

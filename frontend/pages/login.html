@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entrar · Help Desk</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="login-screen">
+  <div class="login-visual">
+    <div class="brand"><span class="dot"></span> Help Desk</div>
+    <div>
+      <h1 class="headline">Cada solicitação, <span>rastreada do início ao fim.</span></h1>
+      <p class="sub">Central de chamados internos para acompanhar abertura, atendimento e resolução de solicitações da empresa.</p>
+      <div class="ticket-stub-mock">
+        <div class="stub-id">CHAMADO #0248</div>
+        <div class="stub-title">Lentidão no banco de dados</div>
+        <div class="stub-meta">
+          <span class="pill pill-status-em-atendimento">Em Atendimento</span>
+          <span class="pill pill-prio-alta">Alta</span>
+        </div>
+      </div>
+    </div>
+    <div class="footnote">Ambiente interno · Acesso restrito a colaboradores autenticados</div>
+  </div>
+
+  <div class="login-form-wrap">
+    <div class="login-form-card">
+      <h1>Bem-vindo de volta</h1>
+      <p class="lead">Entre com sua conta para acessar os chamados.</p>
+
+      <form id="form-login" novalidate>
+        <div class="field" id="field-email">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="seuemail@empresa.com" autocomplete="username">
+          <div class="field-error" id="erro-email"></div>
+        </div>
+        <div class="field" id="field-senha">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" name="senha" placeholder="••••••••" autocomplete="current-password">
+          <div class="field-error" id="erro-senha"></div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="btn-entrar">Entrar</button>
+      </form>
+
+      <p class="login-help">Ambiente de demonstração — use <strong>admin@empresa.com</strong> / <strong>123456</strong></p>
+    </div>
+  </div>
+</div>
+
+<script src="/js/api.js"></script>
+<script>
+  // Se já estiver logado, vai direto para o dashboard
+  if (Auth.getToken()) {
+    window.location.href = 'dashboard.html';
+  }
+
+  const form = document.getElementById('form-login');
+  const btnEntrar = document.getElementById('btn-entrar');
+
+  function limparErros() {
+    ['email', 'senha'].forEach(campo => {
+      document.getElementById(`field-${campo}`).classList.remove('has-error');
+      document.getElementById(`erro-${campo}`).textContent = '';
+    });
+  }
+
+  function marcarErro(campo, mensagem) {
+    document.getElementById(`field-${campo}`).classList.add('has-error');
+    document.getElementById(`erro-${campo}`).textContent = mensagem;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    limparErros();
+
+    const email = document.getElementById('email').value.trim();
+    const senha = document.getElementById('senha').value;
+
+    let valido = true;
+    if (!email) { marcarErro('email', 'Informe seu e-mail.'); valido = false; }
+    if (!senha) { marcarErro('senha', 'Informe sua senha.'); valido = false; }
+    if (!valido) return;
+
+    btnEntrar.disabled = true;
+    btnEntrar.textContent = 'Entrando...';
+
+    try {
+      const resposta = await Api.login(email, senha);
+      Auth.salvarSessao(resposta.token, resposta.usuario);
+      mostrarToast('Login realizado com sucesso!', 'sucesso');
+      setTimeout(() => window.location.href = 'dashboard.html', 400);
+    } catch (err) {
+      marcarErro('senha', err.message);
+      mostrarToast(err.message, 'erro');
+    } finally {
+      btnEntrar.disabled = false;
+      btnEntrar.textContent = 'Entrar';
+    }
+  });
+</script>
+</body>
+</html>

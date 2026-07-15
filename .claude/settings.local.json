@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__azure-devops__core_list_project_teams",
+      "mcp__azure-devops__wit_query_by_wiql",
+      "mcp__azure-devops__wit_get_work_items_batch_by_ids"
+    ]
+  }
+}

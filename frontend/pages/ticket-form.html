@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Novo Chamado · Help Desk</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <div id="sidebar-slot"></div>
+
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <div class="eyebrow">Solicitações internas</div>
+        <h1 id="titulo-pagina">Abrir novo chamado</h1>
+      </div>
+    </div>
+
+    <div class="card" style="max-width:720px;">
+      <form id="form-chamado" novalidate>
+        <div class="form-grid">
+          <div class="field full" id="field-titulo">
+            <label for="titulo">Título</label>
+            <input type="text" id="titulo" placeholder="Ex: Impressora não funciona">
+            <div class="field-error" id="erro-titulo"></div>
+          </div>
+
+          <div class="field full" id="field-descricao">
+            <label for="descricao">Descrição</label>
+            <textarea id="descricao" rows="4" placeholder="Descreva o problema ou solicitação com detalhes..."></textarea>
+            <div class="field-error" id="erro-descricao"></div>
+          </div>
+
+          <div class="field" id="field-categoria">
+            <label for="categoria">Categoria</label>
+            <select id="categoria">
+              <option value="">Selecione...</option>
+              <option>Sistema</option>
+              <option>Infraestrutura</option>
+              <option>Rede</option>
+              <option>Banco de Dados</option>
+              <option>Outros</option>
+            </select>
+            <div class="field-error" id="erro-categoria"></div>
+          </div>
+
+          <div class="field" id="field-prioridade">
+            <label for="prioridade">Prioridade</label>
+            <select id="prioridade">
+              <option value="">Selecione...</option>
+              <option>Baixa</option>
+              <option>Média</option>
+              <option>Alta</option>
+            </select>
+            <div class="field-error" id="erro-prioridade"></div>
+          </div>
+
+          <div class="field" id="field-solicitante">
+            <label for="solicitante">Solicitante</label>
+            <input type="text" id="solicitante" placeholder="Nome de quem está solicitando">
+            <div class="field-error" id="erro-solicitante"></div>
+          </div>
+
+          <div class="field" id="field-status-wrap" style="display:none;">
+            <label for="status">Status</label>
+            <select id="status">
+              <option>Aberto</option>
+              <option>Em Atendimento</option>
+              <option>Finalizado</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="btn-salvar">Abrir Chamado</button>
+          <a href="tickets.html" class="btn btn-secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/components/sidebar.js"></script>
+<script src="/js/ticket-form.js"></script>
+<script>
+  montarLayout('novo');
+  iniciarFormulario();
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard · Help Desk</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <div id="sidebar-slot"></div>
+
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <div class="eyebrow">Visão geral</div>
+        <h1>Dashboard</h1>
+      </div>
+    </div>
+
+    <div id="conteudo-dashboard">
+      <div class="spinner"></div>
+    </div>
+  </main>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/components/sidebar.js"></script>
+<script src="/js/dashboard.js"></script>
+<script>
+  montarLayout('dashboard');
+  carregarDashboard();
+</script>
+</body>
+</html>
