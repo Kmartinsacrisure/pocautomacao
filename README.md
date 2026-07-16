@@ -21,10 +21,10 @@ O banco de dados SQLite é criado e populado com dados de exemplo na primeira ex
 
 ### Login de demonstração
 
-| E-mail              | Senha  |
-|----------------------|--------|
-| admin@empresa.com    | 123456 |
-| joao@empresa.com     | 123456 |
+| E-mail            | Senha  |
+| ----------------- | ------ |
+| admin@empresa.com | 123456 |
+| joao@empresa.com  | 123456 |
 
 ## Estrutura do projeto
 
@@ -58,17 +58,17 @@ helpdesk/
 
 ## API REST
 
-| Método | Rota                          | Descrição                          |
-|--------|-------------------------------|-------------------------------------|
-| POST   | `/api/login`                  | Autenticação                        |
-| GET    | `/api/perfil`                 | Dados do usuário logado             |
-| GET    | `/api/tickets`                | Lista chamados (busca/filtros/paginação) |
-| GET    | `/api/tickets/:id`            | Detalhes, comentários e histórico   |
-| POST   | `/api/tickets`                | Cria chamado                        |
-| PUT    | `/api/tickets/:id`            | Atualiza chamado                    |
-| DELETE | `/api/tickets/:id`            | Remove chamado                      |
-| POST   | `/api/tickets/:id/comentarios`| Adiciona comentário                 |
-| GET    | `/api/dashboard`               | Estatísticas para o dashboard       |
+| Método | Rota                           | Descrição                                |
+| ------ | ------------------------------ | ---------------------------------------- |
+| POST   | `/api/login`                   | Autenticação                             |
+| GET    | `/api/perfil`                  | Dados do usuário logado                  |
+| GET    | `/api/tickets`                 | Lista chamados (busca/filtros/paginação) |
+| GET    | `/api/tickets/:id`             | Detalhes, comentários e histórico        |
+| POST   | `/api/tickets`                 | Cria chamado                             |
+| PUT    | `/api/tickets/:id`             | Atualiza chamado                         |
+| DELETE | `/api/tickets/:id`             | Remove chamado                           |
+| POST   | `/api/tickets/:id/comentarios` | Adiciona comentário                      |
+| GET    | `/api/dashboard`               | Estatísticas para o dashboard            |
 
 Todas as rotas (exceto `/api/login`) exigem o header `Authorization: Bearer <token>`.
 
@@ -100,4 +100,3 @@ npm install
 npx playwright install
 npm run test:e2e
 ```
-
