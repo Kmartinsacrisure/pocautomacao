@@ -17,7 +17,8 @@ module.exports = defineConfig({
     ['list'],
     ['html', { outputFolder: `${EVIDENCE_DIR}/relatorio/html-report`, open: 'never' }],
     ['json', { outputFile: `${EVIDENCE_DIR}/relatorio/results.json` }],
-    ['junit', { outputFile: `${EVIDENCE_DIR}/relatorio/junit.xml` }]
+    ['junit', { outputFile: `${EVIDENCE_DIR}/relatorio/junit.xml` }],
+    ['./scripts/executive-reporter.js']
   ],
   use: {
     baseURL: BASE_URL,
