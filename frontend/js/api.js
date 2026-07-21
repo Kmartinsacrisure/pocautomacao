@@ -53,7 +53,7 @@ async function apiRequest(endpoint, { method = 'GET', body = null } = {}) {
     dados = {};
   }
 
-  if (resposta.status === 401) {
+  if (resposta.status === 401 && endpoint !== '/login') {
     Auth.logout();
     throw new Error('Sessão expirada. Faça login novamente.');
   }
