@@ -29,16 +29,35 @@ class TicketDetailPage {
   }
 
   async updateStatusAndPriority(status, priority) {
+    const responsePromise = this.page.waitForResponse(response =>
+      response.request().method() === 'PUT' && /\/api\/tickets\/\d+$/.test(response.url())
+    );
     await this.statusSelect.selectOption(status);
     await this.prioritySelect.selectOption(priority);
     await this.saveChanges.click();
+    return responsePromise;
+  }
+
+  async expectUpdateSucceeded() {
     await expect(this.page.getByText('Chamado atualizado com sucesso!')).toBeVisible();
   }
 
   async addComment(text) {
+    const responsePromise = this.page.waitForResponse(response =>
+      response.request().method() === 'POST' && /\/api\/tickets\/\d+\/comentarios$/.test(response.url())
+    );
     await this.comment.fill(text);
     await this.addCommentButton.click();
-    await expect(this.content.getByText(text)).toBeVisible();
+    return responsePromise;
+  }
+
+  async submitEmptyComment() {
+    await this.comment.fill('   ');
+    await this.addCommentButton.click();
+  }
+
+  async expectCommentRequiredError() {
+    await expect(this.page.locator('#erro-comentario')).toContainText(/Escreva algo antes de enviar/i);
   }
 
   async expectComment(text) {
@@ -50,8 +69,12 @@ class TicketDetailPage {
   }
 
   async deleteTicket() {
+    const responsePromise = this.page.waitForResponse(response =>
+      response.request().method() === 'DELETE' && /\/api\/tickets\/\d+$/.test(response.url())
+    );
     this.page.once('dialog', dialog => dialog.accept());
     await this.deleteButton.click();
+    return responsePromise;
   }
 
   slug(text) {

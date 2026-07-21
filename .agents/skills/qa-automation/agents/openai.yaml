@@ -1,0 +1,7 @@
+interface:
+  display_name: "QA Automation"
+  short_description: "Gera e valida testes E2E por diff"
+  default_prompt: "Use $qa-automation para analisar commits e alterações não commitadas do working tree, gerar testes E2E e produzir o Quality Gate."
+
+policy:
+  allow_implicit_invocation: true

@@ -29,3 +29,31 @@ test('CT-003 - pagina protegida sem sessao redireciona para login', async ({ pag
   await expect(page.getByRole('heading', { name: 'Bem-vindo de volta' })).toBeVisible();
 });
 
+test('CT-027 - login rejeita formulario com credenciais vazias sem chamar a API', async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  let loginRequests = 0;
+  page.on('request', request => {
+    if (request.url().endsWith('/api/login')) loginRequests += 1;
+  });
+
+  await loginPage.submitEmpty();
+
+  await loginPage.expectRequiredErrors();
+  expect(loginRequests).toBe(0);
+});
+
+test('CT-028 - login exibe erro do servidor e reabilita o botao', async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  await page.route('**/api/login', route => route.fulfill({
+    status: 500,
+    contentType: 'application/json',
+    body: JSON.stringify({ sucesso: false, mensagem: 'Falha temporaria no login.' })
+  }));
+
+  await loginPage.login('admin@empresa.com', '123456');
+
+  await loginPage.expectPasswordError(/Falha temporaria no login/i);
+  await loginPage.expectSubmitEnabled();
+  await expect(page).toHaveURL(/login\.html/);
+});
+

@@ -27,6 +27,21 @@ class LoginPage {
   async expectPasswordError(message) {
     await expect(this.page.locator('#erro-senha')).toContainText(message);
   }
+
+  async submitEmpty() {
+    await this.goto();
+    await this.submit.click();
+  }
+
+  async expectRequiredErrors() {
+    await expect(this.page.locator('#erro-email')).toContainText(/Informe seu e-mail/i);
+    await expect(this.page.locator('#erro-senha')).toContainText(/Informe sua senha/i);
+  }
+
+  async expectSubmitEnabled() {
+    await expect(this.submit).toBeEnabled();
+    await expect(this.submit).toHaveText('Entrar');
+  }
 }
 
 module.exports = { LoginPage };

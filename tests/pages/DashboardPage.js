@@ -22,6 +22,13 @@ class DashboardPage {
     const raw = await card.locator('.value').innerText();
     return Number(raw.trim());
   }
+
+  async expectChartValue(chartTitle, label, value) {
+    const chart = this.page.locator('.chart-card').filter({ hasText: chartTitle });
+    const row = chart.locator('.bar-row').filter({ hasText: label });
+    await expect(row.locator('.bar-label')).toHaveText(label);
+    await expect(row.locator('.bar-value')).toHaveText(String(value));
+  }
 }
 
 module.exports = { DashboardPage };

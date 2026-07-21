@@ -17,8 +17,11 @@ class TicketsPage {
   }
 
   async search(term) {
+    const responsePromise = this.page.waitForResponse(response =>
+      response.request().method() === 'GET' && response.url().includes('/api/tickets?')
+    );
     await this.searchInput.fill(term);
-    await this.page.waitForTimeout(450);
+    await responsePromise;
   }
 
   async filterByStatus(status) {
